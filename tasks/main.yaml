@@ -1,0 +1,33 @@
+---
+- name: Display input hosts
+  debug:
+    msg: "{{ f5_cred.f5_hosts.split(',') }}"
+  
+- name: Validate f5 credential fields
+  assert:
+    that:
+      - f5_cred.f5_user is defined
+      - f5_cred.f5_password is defined
+      - (f5_cred.f5_hosts | split(',') | length) == 2
+
+- name: Check if vs_name and partition are provided
+  assert:
+    that:
+      - vs_name is defined and vs_name | length > 0
+      - partition is defined and partition | length > 0
+
+- name: Validate virtual server operation
+  assert:
+    that:
+      - vs_operation is defined 
+      - vs_operation in ['create', 'update', 'remove']
+    fail_msg: "vs_operation must be one of: create, update, or remove"
+
+- name: Get active device
+  ansible.builtin.include_tasks:
+    file: get_active_device.yaml
+
+- name: Create virtual server
+  ansible.builtin.include_tasks:
+    file: create_vs.yaml
+  when: vs_operation == "create"

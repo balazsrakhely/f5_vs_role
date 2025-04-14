@@ -1,0 +1,6 @@
+---
+provider_server_port: 443
+provider_validate_certs: true
+partition: Common
+vs_protocol: tcp
+vs_port: 443
