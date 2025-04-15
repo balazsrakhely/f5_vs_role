@@ -34,7 +34,7 @@
 
 - name: Construct virtual server name for update or delete if necessary
   ansible.builtin.set_fact:
-    _vs_name: "{{ vs_name + '_' + vs_protocol + vs_port|string + '_vs' if vs_protocol is defined and vs_port is defined and not name.endswith('_' + vs_protocol + vs_port|string + '_vs') else vs_name }}"
+    _vs_name: "{{ vs_name + '_' + vs_protocol + vs_port|string + '_vs' if vs_protocol is defined and vs_port is defined and not vs_name.endswith('_' + vs_protocol + vs_port|string + '_vs') else vs_name }}"
   when: vs_operation == "update" or vs_operation == "remove"
 
 - name: Update virtual server
