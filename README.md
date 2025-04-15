@@ -46,6 +46,13 @@ If 'vs_operation' equals 'update' or 'remove':
   uses them as suffix, use the 'vs_name' input parameter as is, and do not construct a new name with port and protocol. If port and protocol are still 
   provided and the name doesn't have them as suffix, the name construction still happens. 
 
+If 'vs_operation' equals 'update':
+
+2. Update the pool of the virtual server. The parameter 'pool_name' must be provided, but it can be empty ("") for the intent of pool removal 
+
+If 'vs_operation' equals 'remove':
+
+2. Removes the virtual server.
 
 ### Examples
 
@@ -126,18 +133,4 @@ If 'vs_operation' equals 'update' or 'remove':
     vs_name: myvirtualserver_tcp443_vs
     partition: My_partition
     pool_name: ""
-```
-
-```yaml
-- name: Remove pool on virtual server
-  ansible.builtin.include_role:
-    name: cetinhu.f5.vs
-  vars:
-    f5_cred:
-        f5_user: apiuser
-        f5_password: apipassword
-        f5_hosts: 10.10.10.10,10.10.10.11
-    vs_operation: update
-    vs_name: myvirtualserver_tcp443_vs
-    partition: My_partition
 ```
