@@ -5,7 +5,7 @@
       - vs_address is defined
       - vs_protocol is defined
       - vs_port is defined
-      - vs_vlans is defined and vs_vlans | length > 0
+      - vs_vlans is defined
 
 - name: Create virtual server
   bigip_virtual_server:

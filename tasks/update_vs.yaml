@@ -1,0 +1,20 @@
+---
+- name: Update virtual server
+  bigip_virtual_server:
+    state: present
+    partition: "{{ partition }}"
+    name: "{{ _vs_name }}"
+    pool: "{{ pool_name | default('') }}"
+    provider:
+      server: "{{ _active_device_address }}"
+      user: "{{ f5_cred.f5_user }}"
+      password: "{{ f5_cred.f5_password }}"
+      server_port: "{{ provider_server_port }}"
+      no_f5_teem: true
+      transport: rest
+      validate_certs: "{{ provider_validate_certs }}"
+  register: _update_vs_result
+
+- name: Display updated virtual server
+  debug:
+    msg: "{{ _update_vs_result }}"

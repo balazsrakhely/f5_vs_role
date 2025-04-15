@@ -31,3 +31,18 @@
   ansible.builtin.include_tasks:
     file: create_vs.yaml
   when: vs_operation == "create"
+
+- name: Construct virtual server name for update or delete if necessary
+  ansible.builtin.set_fact:
+    _vs_name: "{{ vs_name + '_' + vs_protocol + vs_port + '_vs' if vs_protocol is defined and vs_port is defined and not name.endswith('_' + vs_protocol + vs_port + '_vs') else vs_name }}"
+  when: vs_operation == "update" or vs_operation == "remove"
+
+- name: Update virtual server
+  ansible.builtin.include_tasks:
+    file: update_vs.yaml
+  when: vs_operation == "update"
+
+- name: Remove virtual server
+  ansible.builtin.include_tasks:
+    file: remove_vs.yaml
+  when: vs_operation == "remove"
