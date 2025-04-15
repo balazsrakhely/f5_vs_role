@@ -18,9 +18,9 @@ Create a virtual server in F5
 | vs_port | string | optional | | Mandatory on 'create'. Port of the virtual server. If 0, the virtual server listens on any port. (can be a number or the name of the port) |
 | vs_protocol | string | optional | | Mandatory on 'create'. The network protocol for the traffic on the virtual server |
 | partition | string | optional | Common | The partition in which the resources should be created |
+| pool_name | string | optional | | The name of the pool the virtual server should use |
 | provider_server_port | int | optional | 443 | The port the hosts are accessible on |
 | provider_validate_certs | bool | optional | true | If false, SSL certificates are not validated. Use this only on personally controlled sites using self-signed certificates. |
-| pool_name | string | optional | | The name of the pool the virtual server should use |
 
 ### Functionality
 
