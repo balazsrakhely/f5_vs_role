@@ -4,7 +4,7 @@
     state: present
     partition: "{{ partition }}"
     name: "{{ _vs_name }}"
-    pool: "{{ pool_name | default('', true) }}"
+    pool: "{{ (pool_name is defined) | ternary(pool_name, '') }}"
     provider:
       server: "{{ _active_device_address }}"
       user: "{{ f5_cred.f5_user }}"
